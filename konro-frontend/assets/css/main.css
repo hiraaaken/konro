@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Konro custom styles for warm, encouraging design */
+:root {
+  --color-warm-orange: #ff6b35;
+  --color-warm-yellow: #ffa500;
+  --color-warm-red: #ff4757;
+  --color-soft-cream: #fef7f0;
+  --color-gentle-gray: #f8f9fa;
+}
+
+@layer components {
+  .warm-gradient {
+    background: linear-gradient(135deg, var(--color-warm-orange), var(--color-warm-yellow));
+  }
+  
+  .encouragement-bubble {
+    background: linear-gradient(to right, #fed7aa, #fef3c7);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  }
+}
