@@ -29,3 +29,18 @@ export type EncouragementResponse = {
   fireLevel: FireLevel
   sessionId: string
 }
+
+// Fire Level Selector specific types
+export type FireLevelOption = {
+  level: FireLevel
+  label: string
+  description: string
+  color: string
+  intensity: string
+}
+
+export type FireLevelSelection = {
+  selectedLevel: FireLevel | null
+  isSelected: boolean
+  timestamp?: Date
+}
