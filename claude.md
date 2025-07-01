@@ -31,13 +31,6 @@
 - 選択した火力に応じたチャットボットのキャラクター設定が適用
 - **火力変更不可**: チャット中の火力変更は不可、ルーム退出が必要
 
-### 4. 退出フロー
-
-- **コンロ点火/消火 UI**: 点火（継続）・消火（退出）を選択可能
-- **退出確認**: 消火選択時に「チャットを終了しますか？」の確認ダイアログ
-- **お疲れさまメッセージ**: 終了確定後にお疲れさまメッセージを表示
-- **火力選択画面へ戻る**: メッセージ後、自動的に火力選択画面に遷移
-
 ### 3. 会話の開始
 
 - **チャットボット側から積極的に会話をスタート**
@@ -46,6 +39,13 @@
   - **弱火**: 「お疲れさま。今日はどうしたの？何か辛いことでもあった？」
   - **中火**: 「やあ！今日はどんなことがあったんだい？話してみて！」
   - **強火**: 「どうした！何があった！全部話せ！」
+
+### 4. 退出フロー
+
+- **コンロ点火/消火 UI**: 点火（継続）・消火（退出）を選択可能
+- **退出確認**: 消火選択時に「チャットを終了しますか？」の確認ダイアログ
+- **お疲れさまメッセージ**: 終了確定後にお疲れさまメッセージを表示
+- **火力選択画面へ戻る**: メッセージ後、自動的に火力選択画面に遷移
 
 ## 主要機能
 
@@ -200,7 +200,7 @@ src/
 │   │   ├── fire-level.ts
 │   │   ├── user-info.ts
 │   │   └── message.ts
-│   ├── repositories/       # リポジトリインターface
+│   ├── repositories/       # リポジトリインターフェース
 │   │   ├── chat-repository.ts
 │   │   └── user-repository.ts
 │   └── services/           # ドメインサービス
@@ -234,17 +234,26 @@ src/
 
 ```
 ├── components/             # UIコンポーネント
-│   ├── organisms/          # 複合コンポーネント
+│   ├── chat/
+│   │   ├── Chat.vue
+│   │   ├── ChatInput.vue
+│   │   └── ChatMessage.vue
+│   ├── fire-level/
+│   │   ├── FireLevel.vue
 │   │   ├── FireLevelSelector.vue
-│   │   ├── ChatInterface.vue
-│   │   └── UserInfoForm.vue
-│   ├── molecules/          # 中間コンポーネント
-│   │   ├── ChatBubble.vue
-│   │   ├── FireAnimation.vue
-│   │   └── ExitButton.vue
-│   └── atoms/              # 基本コンポーネント
-│       ├── Button.vue
-│       └── Input.vue
+│   │   └── FireLevelSelectorItem.vue
+│   ├── user-info/
+│   │   ├── UserInfo.vue
+│   │   └── UserInfoInput.vue
+│   ├── button/
+│   │   ├── Button.vue
+│   │   └── ButtonGroup.vue
+│   ├── dialog/
+│   │   ├── Dialog.vue
+│   │   └── DialogContent.vue
+│   └── modal/
+│       ├── Modal.vue
+│       └── ModalContent.vue
 ├── composables/            # アプリケーション層
 │   ├── useChat.ts          # チャット用ユースケース
 │   ├── useUserInfo.ts      # ユーザー情報管理
