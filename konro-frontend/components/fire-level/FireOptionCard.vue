@@ -16,12 +16,13 @@
     @mouseleave="handleMouseLeave"
   >
     <!-- Fire Icon -->
-    <div 
+    <Icon
+      name="fire"
       :data-testid="'fire-icon'"
+      :size="'xl'"
+      :animated="selected"
       :class="iconClasses"
-    >
-      🔥
-    </div>
+    />
 
     <!-- Content -->
     <div class="flex-1">
@@ -52,18 +53,18 @@
     </div>
 
     <!-- Selection Indicator -->
-    <div
+    <Icon
       v-if="selected"
+      name="check"
       class="ml-2 text-white"
       aria-hidden="true"
-    >
-      ✓
-    </div>
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
+import Icon from '../ui/Icon.vue'
 import type { FireLevel, FireLevelOption } from '../../types/domain'
 
 defineOptions({
@@ -121,9 +122,8 @@ const cardClasses = computed(() => [
 ])
 
 const iconClasses = computed(() => [
-  'text-2xl mr-3 transition-transform duration-200',
+  'mr-3 transition-transform duration-200',
   {
-    'animate-pulse': props.selected,
     'transform scale-110': isHovered.value && !props.disabled,
   }
 ])

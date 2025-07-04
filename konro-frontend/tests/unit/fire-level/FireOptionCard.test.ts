@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
-import FireOptionCard from '../../components/fire-level/FireOptionCard.vue'
-import type { FireLevelOption } from '../../types/domain'
+import FireOptionCard from '../../../components/fire-level/FireOptionCard.vue'
+import type { FireLevelOption } from '../../../types/domain'
 
 const mockFireLevelOption: FireLevelOption = {
   level: 'weak',
