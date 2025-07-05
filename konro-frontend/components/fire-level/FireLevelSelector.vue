@@ -22,7 +22,7 @@
         :key="option.level"
         :data-testid="`fire-option-${option.level}`"
         :option="option"
-        :selected="isFireLevelSelected(option.level)"
+        :selected="fireLevelStore.isFireLevelSelected(option.level)"
         :disabled="disabled"
         class="fire-option"
         @click="handleFireLevelSelect"
@@ -31,21 +31,22 @@
 
     <!-- Continue Button (only show if selection is made) -->
     <div v-if="isSelected && !disabled" class="mt-8 text-center">
-      <button
-        class="px-8 py-3 bg-gradient-to-r from-orange-400 to-red-500 text-white rounded-lg font-semibold
-               hover:from-orange-500 hover:to-red-600 transform hover:scale-105 transition-all duration-200
-               focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
+      <Button
+        size="lg"
+        variant="primary"
         @click="handleContinue"
       >
         チャットを始める
-      </button>
+      </Button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { useFireLevel } from '../../composables/useFireLevel'
-import FireOptionCard from '../molecules/FireOptionCard.vue'
+import { storeToRefs } from 'pinia'
+import { useFireLevelStore } from '../../stores/fireLevel'
+import FireOptionCard from './FireOptionCard.vue'
+import Button from '../ui/Button.vue'
 import type { FireLevel } from '../../types/domain'
 
 interface Props {
@@ -65,19 +66,25 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emit = defineEmits<Emits>()
 
-// Use composable
+// Use Pinia store
+const fireLevelStore = useFireLevelStore()
+
+// Initialize with props value
+if (props.initialSelected) {
+  fireLevelStore.initializeWithLevel(props.initialSelected)
+}
+
+// Reactive references from store
 const {
   fireLevelOptions,
   selectedFireLevel,
-  isSelected,
-  selectFireLevel,
-  isFireLevelSelected
-} = useFireLevel(props.initialSelected)
+  isSelected
+} = storeToRefs(fireLevelStore)
 
 // Event handlers
 function handleFireLevelSelect(level: FireLevel) {
   if (!props.disabled) {
-    selectFireLevel(level)
+    fireLevelStore.selectFireLevel(level)
     emit('fire-level-selected', level)
   }
 }

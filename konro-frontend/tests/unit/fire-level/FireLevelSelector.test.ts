@@ -1,17 +1,29 @@
 import { describe, it, expect, beforeEach } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { createPinia, setActivePinia } from 'pinia'
-import FireLevelSelector from '../../components/fire-level/FireLevelSelector.vue'
-import type { FireLevel } from '../../types/domain'
+import FireLevelSelector from '../../../components/fire-level/FireLevelSelector.vue'
+import type { FireLevel } from '../../../types/domain'
 
 describe('FireLevelSelector', () => {
+  let pinia: ReturnType<typeof createPinia>
+
   beforeEach(() => {
-    setActivePinia(createPinia())
+    pinia = createPinia()
+    setActivePinia(pinia)
   })
+
+  function createWrapper(props = {}) {
+    return mount(FireLevelSelector, {
+      props,
+      global: {
+        plugins: [pinia]
+      }
+    })
+  }
 
   describe('Basic Rendering', () => {
     it('should render fire level selector with three options', () => {
-      const wrapper = mount(FireLevelSelector)
+      const wrapper = createWrapper()
       
       // Check if all three fire level options are rendered
       const fireOptions = wrapper.findAll('[role="radio"]')
@@ -24,7 +36,7 @@ describe('FireLevelSelector', () => {
     })
 
     it('should display correct labels for each fire level', () => {
-      const wrapper = mount(FireLevelSelector)
+      const wrapper = createWrapper()
       
       const weakOption = wrapper.find('[data-testid*="fire-option-weak"]')
       const mediumOption = wrapper.find('[data-testid*="fire-option-medium"]')
@@ -36,7 +48,7 @@ describe('FireLevelSelector', () => {
     })
 
     it('should display descriptions for each fire level', () => {
-      const wrapper = mount(FireLevelSelector)
+      const wrapper = createWrapper()
       
       const weakOption = wrapper.find('[data-testid*="fire-option-weak"]')
       const mediumOption = wrapper.find('[data-testid*="fire-option-medium"]')
@@ -50,7 +62,7 @@ describe('FireLevelSelector', () => {
 
   describe('Selection Behavior', () => {
     it('should select fire level when option is clicked', async () => {
-      const wrapper = mount(FireLevelSelector)
+      const wrapper = createWrapper()
       
       const weakOption = wrapper.find('[data-testid*="fire-option-weak"]')
       await weakOption.trigger('click')
@@ -61,7 +73,7 @@ describe('FireLevelSelector', () => {
     })
 
     it('should only allow single selection', async () => {
-      const wrapper = mount(FireLevelSelector)
+      const wrapper = createWrapper()
       
       const weakOption = wrapper.find('[data-testid*="fire-option-weak"]')
       const mediumOption = wrapper.find('[data-testid*="fire-option-medium"]')
@@ -74,7 +86,7 @@ describe('FireLevelSelector', () => {
     })
 
     it('should emit selection event with correct fire level', async () => {
-      const wrapper = mount(FireLevelSelector)
+      const wrapper = createWrapper()
       
       const strongOption = wrapper.find('[data-testid*="fire-option-strong"]')
       await strongOption.trigger('click')
@@ -87,7 +99,7 @@ describe('FireLevelSelector', () => {
 
   describe('Visual Feedback', () => {
     it('should apply correct color theme for each fire level', () => {
-      const wrapper = mount(FireLevelSelector)
+      const wrapper = createWrapper()
       
       const weakOption = wrapper.find('[data-testid*="fire-option-weak"]')
       const mediumOption = wrapper.find('[data-testid*="fire-option-medium"]')
@@ -100,7 +112,7 @@ describe('FireLevelSelector', () => {
     })
 
     it('should show hover effects on fire options', async () => {
-      const wrapper = mount(FireLevelSelector)
+      const wrapper = createWrapper()
       
       const weakOption = wrapper.find('[data-testid*="fire-option-weak"]')
       await weakOption.trigger('mouseenter')
@@ -109,7 +121,7 @@ describe('FireLevelSelector', () => {
     })
 
     it('should show selected state visually', async () => {
-      const wrapper = mount(FireLevelSelector)
+      const wrapper = createWrapper()
       
       const mediumOption = wrapper.find('[data-testid*="fire-option-medium"]')
       await mediumOption.trigger('click')
@@ -121,7 +133,7 @@ describe('FireLevelSelector', () => {
 
   describe('Accessibility', () => {
     it('should have proper ARIA attributes', () => {
-      const wrapper = mount(FireLevelSelector)
+      const wrapper = createWrapper()
       
       const selector = wrapper.find('[data-testid="fire-level-selector"]')
       expect(selector.attributes('role')).toBe('radiogroup')
@@ -135,7 +147,7 @@ describe('FireLevelSelector', () => {
     })
 
     it('should support keyboard navigation', async () => {
-      const wrapper = mount(FireLevelSelector)
+      const wrapper = createWrapper()
       
       const weakOption = wrapper.find('[data-testid*="fire-option-weak"]')
       await weakOption.trigger('keydown.enter')
@@ -145,7 +157,7 @@ describe('FireLevelSelector', () => {
     })
 
     it('should support space key selection', async () => {
-      const wrapper = mount(FireLevelSelector)
+      const wrapper = createWrapper()
       
       const strongOption = wrapper.find('[data-testid*="fire-option-strong"]')
       await strongOption.trigger('keydown.space')
@@ -157,10 +169,8 @@ describe('FireLevelSelector', () => {
 
   describe('Props and State Management', () => {
     it('should accept initial selected fire level via props', () => {
-      const wrapper = mount(FireLevelSelector, {
-        props: {
-          initialSelected: 'medium' as FireLevel
-        }
+      const wrapper = createWrapper({
+        initialSelected: 'medium' as FireLevel
       })
       
       const mediumOption = wrapper.find('[data-testid*="fire-option-medium"]')
@@ -168,10 +178,8 @@ describe('FireLevelSelector', () => {
     })
 
     it('should handle disabled state', () => {
-      const wrapper = mount(FireLevelSelector, {
-        props: {
-          disabled: true
-        }
+      const wrapper = createWrapper({
+        disabled: true
       })
       
       const options = wrapper.findAll('[role="radio"]')
@@ -184,10 +192,8 @@ describe('FireLevelSelector', () => {
 
   describe('Error Handling', () => {
     it('should handle invalid initial selection gracefully', () => {
-      const wrapper = mount(FireLevelSelector, {
-        props: {
-          initialSelected: 'invalid' as FireLevel
-        }
+      const wrapper = createWrapper({
+        initialSelected: 'invalid' as FireLevel
       })
       
       // Should not have any selected option for invalid input
@@ -196,10 +202,8 @@ describe('FireLevelSelector', () => {
     })
 
     it('should prevent selection when disabled', async () => {
-      const wrapper = mount(FireLevelSelector, {
-        props: {
-          disabled: true
-        }
+      const wrapper = createWrapper({
+        disabled: true
       })
       
       const weakOption = wrapper.find('[data-testid*="fire-option-weak"]')

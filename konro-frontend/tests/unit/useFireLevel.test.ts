@@ -1,11 +1,22 @@
 import { describe, it, expect, beforeEach } from 'vitest'
+import { createPinia, setActivePinia } from 'pinia'
 import { useFireLevel } from '../../composables/useFireLevel'
 import type { FireLevel } from '../../types/domain'
 
 describe('useFireLevel', () => {
+  beforeEach(() => {
+    setActivePinia(createPinia())
+  })
+
   describe('Fire Level Options', () => {
     it('should provide all fire level options', () => {
-      const { fireLevelOptions } = useFireLevel()
+      const result = useFireLevel()
+      console.log('useFireLevel result:', Object.keys(result))
+      console.log('fireLevelOptions:', result.fireLevelOptions)
+      console.log('selectedFireLevel:', result.selectedFireLevel)
+      console.log('isSelected:', result.isSelected)
+      
+      const { fireLevelOptions } = result
       
       expect(fireLevelOptions.value).toHaveLength(3)
       
@@ -18,9 +29,9 @@ describe('useFireLevel', () => {
     it('should have correct fire level configurations', () => {
       const { fireLevelOptions } = useFireLevel()
       
-      const weakOption = fireLevelOptions.value.find(option => option.level === 'weak')
-      const mediumOption = fireLevelOptions.value.find(option => option.level === 'medium')
-      const strongOption = fireLevelOptions.value.find(option => option.level === 'strong')
+      const weakOption = fireLevelOptions.find(option => option.level === 'weak')
+      const mediumOption = fireLevelOptions.find(option => option.level === 'medium')
+      const strongOption = fireLevelOptions.find(option => option.level === 'strong')
       
       expect(weakOption).toEqual({
         level: 'weak',
