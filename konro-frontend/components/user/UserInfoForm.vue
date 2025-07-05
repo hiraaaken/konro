@@ -36,10 +36,10 @@
             <option value="">選択してください</option>
             <option
               v-for="age in userInfoOptions.ages"
-              :key="age"
-              :value="age"
+              :key="age.key"
+              :value="age.key"
             >
-              {{ age }}
+              {{ age.label }}
             </option>
           </select>
         </template>
@@ -61,10 +61,10 @@
             <option value="">選択してください</option>
             <option
               v-for="gender in userInfoOptions.genders"
-              :key="gender"
-              :value="gender"
+              :key="gender.key"
+              :value="gender.key"
             >
-              {{ gender }}
+              {{ gender.label }}
             </option>
           </select>
         </template>
@@ -86,10 +86,10 @@
             <option value="">選択してください</option>
             <option
               v-for="occupation in userInfoOptions.occupations"
-              :key="occupation"
-              :value="occupation"
+              :key="occupation.key"
+              :value="occupation.key"
             >
-              {{ occupation }}
+              {{ occupation.label }}
             </option>
           </select>
         </template>
@@ -101,6 +101,7 @@
           type="submit"
           variant="primary"
           :full-width="false"
+          :loading="props.loading"
           class="flex-1"
         >
           保存
@@ -109,6 +110,7 @@
           type="button"
           variant="ghost"
           :full-width="false"
+          :disabled="props.loading"
           class="flex-1"
           @click="handleSkip"
         >
@@ -118,14 +120,20 @@
     </form>
 
     <!-- Progress Indicator -->
-    <div class="mt-4 flex justify-center space-x-2">
-      <Badge
-        v-if="hasUserInfo"
-        variant="success"
-        icon="check"
-      >
-        設定済み
-      </Badge>
+    <div class="mt-4 text-center">
+      <div v-if="hasUserInfo" class="space-y-2">
+        <Badge
+          variant="success"
+          icon="check"
+        >
+          設定済み
+        </Badge>
+        <div class="text-xs text-gray-500">
+          <p v-if="userInfo.age">年代: {{ userInfoStore.getAgeLabel(userInfo.age) }}</p>
+          <p v-if="userInfo.gender">性別: {{ userInfoStore.getGenderLabel(userInfo.gender) }}</p>
+          <p v-if="userInfo.occupation">職業: {{ userInfoStore.getOccupationLabel(userInfo.occupation) }}</p>
+        </div>
+      </div>
       <Badge
         v-else-if="isPartiallyFilled"
         variant="warning"
@@ -146,10 +154,18 @@ import Button from '../ui/Button.vue'
 import Icon from '../ui/Icon.vue'
 import Badge from '../ui/Badge.vue'
 
-interface Emits {
-  (e: 'saved'): void
-  (e: 'skipped'): void
+interface Props {
+  loading?: boolean
 }
+
+interface Emits {
+  (e: 'submit', userInfo: any): void
+  (e: 'skip'): void
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  loading: false
+})
 
 const emit = defineEmits<Emits>()
 
@@ -173,17 +189,18 @@ const isPartiallyFilled = computed(() => {
 
 // Methods
 function handleSubmit() {
-  userInfoStore.setUserInfo({
+  const userInfoData = {
     age: formData.age || undefined,
     gender: formData.gender || undefined,
     occupation: formData.occupation || undefined
-  })
+  }
   
-  emit('saved')
+  userInfoStore.setUserInfo(userInfoData)
+  emit('submit', userInfoData)
 }
 
 function handleSkip() {
   userInfoStore.skipUserInfo()
-  emit('skipped')
+  emit('skip')
 }
 </script>

@@ -7,18 +7,42 @@ export interface UserInfo {
   occupation?: string
 }
 
+export interface SelectOption {
+  key: string
+  label: string
+}
+
 export interface UserInfoOption {
-  ages: string[]
-  genders: string[]
-  occupations: string[]
+  ages: SelectOption[]
+  genders: SelectOption[]
+  occupations: SelectOption[]
 }
 
 export const useUserInfoStore = defineStore('userInfo', () => {
   // User information configuration
   const userInfoOptions = ref<UserInfoOption>({
-    ages: ['10代', '20代', '30代', '40代', '50代', '60代以上'],
-    genders: ['男性', '女性', 'その他', '回答しない'],
-    occupations: ['学生', '会社員', '公務員', '自営業', '専業主婦(夫)', 'その他']
+    ages: [
+      { key: 'teens', label: '10代' },
+      { key: 'twenties', label: '20代' },
+      { key: 'thirties', label: '30代' },
+      { key: 'forties', label: '40代' },
+      { key: 'fifties', label: '50代' },
+      { key: 'sixties_plus', label: '60代以上' }
+    ],
+    genders: [
+      { key: 'male', label: '男性' },
+      { key: 'female', label: '女性' },
+      { key: 'other', label: 'その他' },
+      { key: 'no_answer', label: '回答しない' }
+    ],
+    occupations: [
+      { key: 'student', label: '学生' },
+      { key: 'company_employee', label: '会社員' },
+      { key: 'civil_servant', label: '公務員' },
+      { key: 'self_employed', label: '自営業' },
+      { key: 'housewife_husband', label: '専業主婦(夫)' },
+      { key: 'other', label: 'その他' }
+    ]
   })
 
   // User information state
@@ -78,7 +102,14 @@ export const useUserInfoStore = defineStore('userInfo', () => {
       const savedSkipped = localStorage.getItem('konro-user-info-skipped')
       
       if (savedInfo) {
-        userInfo.value = JSON.parse(savedInfo)
+        const parsed = JSON.parse(savedInfo)
+        
+        // Migrate old data format (label-based) to new format (key-based)
+        userInfo.value = {
+          age: migrateAgeToKey(parsed.age),
+          gender: migrateGenderToKey(parsed.gender),
+          occupation: migrateOccupationToKey(parsed.occupation)
+        }
       }
       
       if (savedSkipped) {
@@ -90,6 +121,25 @@ export const useUserInfoStore = defineStore('userInfo', () => {
       console.warn('Failed to load user info from localStorage:', error)
       isInitialized.value = true
     }
+  }
+
+  // Migration helpers for old data format
+  function migrateAgeToKey(age?: string): string | undefined {
+    if (!age) return undefined
+    const option = userInfoOptions.value.ages.find(a => a.label === age)
+    return option ? option.key : age
+  }
+
+  function migrateGenderToKey(gender?: string): string | undefined {
+    if (!gender) return undefined
+    const option = userInfoOptions.value.genders.find(g => g.label === gender)
+    return option ? option.key : gender
+  }
+
+  function migrateOccupationToKey(occupation?: string): string | undefined {
+    if (!occupation) return undefined
+    const option = userInfoOptions.value.occupations.find(o => o.label === occupation)
+    return option ? option.key : occupation
   }
 
   function saveToLocalStorage() {
@@ -116,6 +166,22 @@ export const useUserInfoStore = defineStore('userInfo', () => {
     return !isInitialized.value || (!hasUserInfo.value && !isSkipped.value)
   }
 
+  // Helper functions to get labels from keys
+  function getAgeLabel(key: string): string {
+    const option = userInfoOptions.value.ages.find(age => age.key === key)
+    return option?.label || key
+  }
+
+  function getGenderLabel(key: string): string {
+    const option = userInfoOptions.value.genders.find(gender => gender.key === key)
+    return option?.label || key
+  }
+
+  function getOccupationLabel(key: string): string {
+    const option = userInfoOptions.value.occupations.find(occupation => occupation.key === key)
+    return option?.label || key
+  }
+
   // Initialize on store creation
   if (typeof window !== 'undefined') {
     loadFromLocalStorage()
@@ -140,6 +206,11 @@ export const useUserInfoStore = defineStore('userInfo', () => {
     loadFromLocalStorage,
     loadUserInfo: loadFromLocalStorage, // Alias for consistency
     shouldShowUserInfoForm,
+    
+    // Helper functions
+    getAgeLabel,
+    getGenderLabel,
+    getOccupationLabel,
     
     // API-compatible methods
     saveUserInfo: setUserInfo // Alias for API consistency

@@ -8,6 +8,11 @@ export type UserInfo = {
   occupation?: string
 }
 
+export type SelectOption = {
+  key: string
+  label: string
+}
+
 export type ChatMessage = {
   id: string
   content: string

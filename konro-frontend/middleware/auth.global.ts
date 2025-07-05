@@ -15,10 +15,17 @@ export default defineNuxtRouteMiddleware((to) => {
 
     case '/select':
       // Fire level selection is accessible after setup (or skip)
+      // Check if user should be redirected to setup first
+      if (userInfoStore.shouldShowUserInfoForm()) {
+        return navigateTo('/setup')
+      }
       break
 
     case '/chat':
-      // Chat requires active session
+      // Chat requires active session and completed onboarding
+      if (userInfoStore.shouldShowUserInfoForm()) {
+        return navigateTo('/setup')
+      }
       if (!chatSessionStore.hasActiveSession) {
         return navigateTo('/select')
       }

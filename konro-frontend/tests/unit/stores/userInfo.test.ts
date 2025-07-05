@@ -36,39 +36,39 @@ describe('useUserInfoStore', () => {
     it('should_have_correct_user_info_options', () => {
       const options = store.userInfoOptions
       
-      expect(options.ages).toContain('20代')
-      expect(options.genders).toContain('男性')
-      expect(options.occupations).toContain('会社員')
+      expect(options.ages.some(age => age.key === 'twenties' && age.label === '20代')).toBe(true)
+      expect(options.genders.some(gender => gender.key === 'male' && gender.label === '男性')).toBe(true)
+      expect(options.occupations.some(occupation => occupation.key === 'company_employee' && occupation.label === '会社員')).toBe(true)
     })
   })
 
   describe('User Information Management', () => {
     it('should_set_user_info_correctly', () => {
       store.setUserInfo({
-        age: '30代',
-        gender: '男性',
-        occupation: '会社員'
+        age: 'thirties',
+        gender: 'male',
+        occupation: 'company_employee'
       })
       
-      expect(store.userInfo.age).toBe('30代')
-      expect(store.userInfo.gender).toBe('男性')
-      expect(store.userInfo.occupation).toBe('会社員')
+      expect(store.userInfo.age).toBe('thirties')
+      expect(store.userInfo.gender).toBe('male')
+      expect(store.userInfo.occupation).toBe('company_employee')
       expect(store.hasUserInfo).toBe(true)
       expect(store.isCompleteProfile).toBe(true)
     })
 
     it('should_set_individual_fields_correctly', () => {
-      store.setAge('20代')
-      store.setGender('女性')
-      store.setOccupation('学生')
+      store.setAge('twenties')
+      store.setGender('female')
+      store.setOccupation('student')
       
-      expect(store.userInfo.age).toBe('20代')
-      expect(store.userInfo.gender).toBe('女性')
-      expect(store.userInfo.occupation).toBe('学生')
+      expect(store.userInfo.age).toBe('twenties')
+      expect(store.userInfo.gender).toBe('female')
+      expect(store.userInfo.occupation).toBe('student')
     })
 
     it('should_handle_partial_user_info', () => {
-      store.setAge('40代')
+      store.setAge('forties')
       
       expect(store.hasUserInfo).toBe(true)
       expect(store.isCompleteProfile).toBe(false)
@@ -82,9 +82,9 @@ describe('useUserInfoStore', () => {
 
     it('should_clear_user_info_completely', () => {
       store.setUserInfo({
-        age: '30代',
-        gender: '男性',
-        occupation: '会社員'
+        age: 'thirties',
+        gender: 'male',
+        occupation: 'company_employee'
       })
       store.skipUserInfo()
       
@@ -98,11 +98,11 @@ describe('useUserInfoStore', () => {
 
   describe('Local Storage Integration', () => {
     it('should_save_to_localStorage_when_user_info_set', () => {
-      store.setUserInfo({ age: '30代' })
+      store.setUserInfo({ age: 'thirties' })
       
       expect(localStorageMock.setItem).toHaveBeenCalledWith(
         'konro-user-info',
-        JSON.stringify({ age: '30代' })
+        JSON.stringify({ age: 'thirties' })
       )
     })
 
@@ -116,7 +116,7 @@ describe('useUserInfoStore', () => {
     })
 
     it('should_load_from_localStorage_on_initialization', () => {
-      const savedUserInfo = { age: '25代', gender: '女性' }
+      const savedUserInfo = { age: 'twenties', gender: 'female' }
       localStorageMock.getItem.mockImplementation((key: string) => {
         if (key === 'konro-user-info') {
           return JSON.stringify(savedUserInfo)
@@ -164,7 +164,7 @@ describe('useUserInfoStore', () => {
     it('should_calculate_hasUserInfo_correctly', () => {
       expect(store.hasUserInfo).toBe(false)
       
-      store.setAge('30代')
+      store.setAge('thirties')
       expect(store.hasUserInfo).toBe(true)
       
       store.clearUserInfo()
@@ -174,14 +174,28 @@ describe('useUserInfoStore', () => {
     it('should_calculate_isCompleteProfile_correctly', () => {
       expect(store.isCompleteProfile).toBe(false)
       
-      store.setAge('30代')
+      store.setAge('thirties')
       expect(store.isCompleteProfile).toBe(false)
       
-      store.setGender('男性')
+      store.setGender('male')
       expect(store.isCompleteProfile).toBe(false)
       
-      store.setOccupation('会社員')
+      store.setOccupation('company_employee')
       expect(store.isCompleteProfile).toBe(true)
+    })
+  })
+
+  describe('Label Helper Functions', () => {
+    it('should_return_correct_labels_for_keys', () => {
+      expect(store.getAgeLabel('twenties')).toBe('20代')
+      expect(store.getGenderLabel('male')).toBe('男性')
+      expect(store.getOccupationLabel('student')).toBe('学生')
+    })
+
+    it('should_return_key_itself_for_unknown_keys', () => {
+      expect(store.getAgeLabel('unknown')).toBe('unknown')
+      expect(store.getGenderLabel('unknown')).toBe('unknown')
+      expect(store.getOccupationLabel('unknown')).toBe('unknown')
     })
   })
 })
