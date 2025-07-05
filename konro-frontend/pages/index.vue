@@ -1,14 +1,14 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-orange-50 to-red-50 flex items-center justify-center p-4">
+  <div class="min-h-screen bg-konro-dark flex items-center justify-center p-4">
     <div class="max-w-md mx-auto text-center">
       <div class="bg-white rounded-lg shadow-lg p-8">
-        <h1 class="text-3xl font-bold text-gray-800 mb-4">
+        <h1 class="text-3xl font-bold text-konro-primary mb-4">
           🔥 Konro
         </h1>
-        <p class="text-gray-600 mb-6">
+        <p class="text-konro-secondary mb-6">
           ポジティブ励ましチャットボット
         </p>
-        <p class="text-sm text-gray-500 mb-8">
+        <p class="text-sm text-konro-secondary mb-8">
           Fire Level Selector Component Demo
         </p>
         
@@ -21,8 +21,8 @@
           View Demo
         </NuxtLink>
         
-        <div class="mt-8 pt-6 border-t border-gray-200">
-          <p class="text-xs text-gray-400">
+        <div class="mt-8 pt-6 border-t border-gray-700">
+          <p class="text-xs text-konro-secondary">
             Feature Branch: feature_8<br>
             Fire Level Selector Component Implementation
           </p>

@@ -1,10 +1,10 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-orange-50 to-red-50 flex items-center justify-center p-4">
+  <div class="min-h-screen bg-konro-dark flex items-center justify-center p-4">
     <div class="max-w-md w-full">
       <div class="text-center mb-8">
-        <h1 class="text-3xl font-bold text-gray-800 mb-2">Konro</h1>
-        <p class="text-gray-600">あなたのことを教えてください</p>
-        <p class="text-sm text-gray-500 mt-2">（この情報はあなたの端末にのみ保存されます）</p>
+        <h1 class="text-3xl font-bold text-konro-primary mb-2">Konro</h1>
+        <p class="text-konro-secondary">あなたのことを教えてください</p>
+        <p class="text-sm text-konro-secondary mt-2">（この情報はあなたの端末にのみ保存されます）</p>
       </div>
       
       <UserInfoForm 

@@ -1,17 +1,17 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-orange-50 to-red-50 flex items-center justify-center p-4">
+  <div class="min-h-screen bg-konro-dark flex items-center justify-center p-4">
     <div class="max-w-md w-full text-center">
       <!-- Animated Fire Icon -->
       <div class="mb-8">
         <div class="inline-flex items-center justify-center w-24 h-24 bg-white rounded-full shadow-lg mb-4">
           <Icon name="flame" size="48" class="text-orange-500 animate-pulse" />
         </div>
-        <h1 class="text-2xl font-bold text-gray-800 mb-2">お疲れさまでした</h1>
+        <h1 class="text-2xl font-bold text-konro-primary mb-2">お疲れさまでした</h1>
       </div>
 
       <!-- Farewell Message based on Fire Level -->
       <div class="bg-white rounded-lg p-6 shadow-sm mb-8">
-        <p class="text-gray-700 leading-relaxed">{{ farewellMessage }}</p>
+        <p class="text-konro-secondary leading-relaxed">{{ farewellMessage }}</p>
       </div>
 
       <!-- Action Buttons -->
@@ -25,14 +25,14 @@
         
         <button
           @click="goToSelect"
-          class="w-full px-6 py-3 border border-gray-300 text-gray-700 hover:bg-gray-50 rounded-lg font-medium transition-colors"
+          class="w-full px-6 py-3 border border-gray-600 text-konro-secondary hover:bg-konro-surface rounded-lg font-medium transition-colors"
         >
           火力を変更して話す
         </button>
       </div>
 
       <!-- Footer -->
-      <footer class="mt-8 text-sm text-gray-500">
+      <footer class="mt-8 text-sm text-konro-secondary">
         <p>いつでもまた話しかけてくださいね</p>
       </footer>
     </div>

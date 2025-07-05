@@ -9,6 +9,12 @@
   --color-warm-red: #ff4757;
   --color-soft-cream: #fef7f0;
   --color-gentle-gray: #f8f9fa;
+  
+  /* Dark theme colors for fire contrast */
+  --color-dark-bg: #0f0f0f;
+  --color-dark-surface: #1a1a1a;
+  --color-dark-text: #e5e5e5;
+  --color-dark-text-muted: #a3a3a3;
 }
 
 @layer components {
@@ -21,5 +27,22 @@
     border-radius: 0.5rem;
     padding: 1rem;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Dark theme background utilities */
+  .bg-konro-dark {
+    background-color: var(--color-dark-bg);
+  }
+  
+  .bg-konro-surface {
+    background-color: var(--color-dark-surface);
+  }
+  
+  .text-konro-primary {
+    color: var(--color-dark-text);
+  }
+  
+  .text-konro-secondary {
+    color: var(--color-dark-text-muted);
   }
 }

@@ -1,9 +1,9 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-orange-50 to-red-50 flex flex-col">
+  <div class="min-h-screen bg-konro-dark flex flex-col">
     <!-- Header -->
     <header class="text-center py-8">
-      <h1 class="text-4xl font-bold text-gray-800 mb-2">Konro</h1>
-      <p class="text-lg text-gray-600">今日の励まし火力を選んでください</p>
+      <h1 class="text-4xl font-bold text-konro-primary mb-2">Konro</h1>
+      <p class="text-lg text-konro-secondary">今日の励まし火力を選んでください</p>
     </header>
 
     <!-- Fire Level Selector -->
@@ -30,7 +30,7 @@
     <footer class="text-center py-6">
       <button 
         @click="goToSettings"
-        class="text-sm text-gray-500 hover:text-gray-700 underline"
+        class="text-sm text-konro-secondary hover:text-konro-primary underline"
       >
         設定を変更する
       </button>
