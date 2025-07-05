@@ -22,78 +22,70 @@
     <!-- Form -->
     <form @submit.prevent="handleSubmit">
       <!-- Age Selection -->
-      <FormField
-        v-model="formData.age"
-        label="年代"
-        :required="false"
-        help-text="あなたの年代を選択してください"
-      >
-        <template #input>
-          <select
-            v-model="formData.age"
-            class="block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+      <div class="form-group">
+        <label for="age" class="block text-sm font-medium text-gray-700 mb-1">
+          年代
+        </label>
+        <select
+          id="age"
+          v-model="formData.age"
+          class="block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+        >
+          <option value="">選択してください</option>
+          <option
+            v-for="age in userInfoOptions.ages"
+            :key="age.key"
+            :value="age.key"
           >
-            <option value="">選択してください</option>
-            <option
-              v-for="age in userInfoOptions.ages"
-              :key="age.key"
-              :value="age.key"
-            >
-              {{ age.label }}
-            </option>
-          </select>
-        </template>
-      </FormField>
+            {{ age.label }}
+          </option>
+        </select>
+        <p class="mt-1 text-sm text-gray-600">あなたの年代を選択してください</p>
+      </div>
 
       <!-- Gender Selection -->
-      <FormField
-        v-model="formData.gender"
-        label="性別"
-        :required="false"
-        help-text="該当するものを選択してください"
-        class="mt-4"
-      >
-        <template #input>
-          <select
-            v-model="formData.gender"
-            class="block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+      <div class="form-group mt-4">
+        <label for="gender" class="block text-sm font-medium text-gray-700 mb-1">
+          性別
+        </label>
+        <select
+          id="gender"
+          v-model="formData.gender"
+          class="block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+        >
+          <option value="">選択してください</option>
+          <option
+            v-for="gender in userInfoOptions.genders"
+            :key="gender.key"
+            :value="gender.key"
           >
-            <option value="">選択してください</option>
-            <option
-              v-for="gender in userInfoOptions.genders"
-              :key="gender.key"
-              :value="gender.key"
-            >
-              {{ gender.label }}
-            </option>
-          </select>
-        </template>
-      </FormField>
+            {{ gender.label }}
+          </option>
+        </select>
+        <p class="mt-1 text-sm text-gray-600">該当するものを選択してください</p>
+      </div>
 
       <!-- Occupation Selection -->
-      <FormField
-        v-model="formData.occupation"
-        label="職業"
-        :required="false"
-        help-text="現在の職業を選択してください"
-        class="mt-4"
-      >
-        <template #input>
-          <select
-            v-model="formData.occupation"
-            class="block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+      <div class="form-group mt-4">
+        <label for="occupation" class="block text-sm font-medium text-gray-700 mb-1">
+          職業
+        </label>
+        <select
+          id="occupation"
+          v-model="formData.occupation"
+          class="block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+        >
+          <option value="">選択してください</option>
+          <option
+            v-for="occupation in userInfoOptions.occupations"
+            :key="occupation.key"
+            :value="occupation.key"
           >
-            <option value="">選択してください</option>
-            <option
-              v-for="occupation in userInfoOptions.occupations"
-              :key="occupation.key"
-              :value="occupation.key"
-            >
-              {{ occupation.label }}
-            </option>
-          </select>
-        </template>
-      </FormField>
+            {{ occupation.label }}
+          </option>
+        </select>
+        <p class="mt-1 text-sm text-gray-600">現在の職業を選択してください</p>
+      </div>
 
       <!-- Actions -->
       <div class="flex space-x-3 mt-6">
@@ -149,7 +141,6 @@
 import { computed, reactive } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useUserInfoStore } from '../../stores/userInfo'
-import FormField from '../ui/FormField.vue'
 import Button from '../ui/Button.vue'
 import Icon from '../ui/Icon.vue'
 import Badge from '../ui/Badge.vue'

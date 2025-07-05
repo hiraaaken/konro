@@ -12,7 +12,12 @@
 
     <!-- Input Field -->
     <div class="relative">
+      <!-- Custom input slot (for select boxes, etc.) -->
+      <slot v-if="$slots.input" name="input" />
+      
+      <!-- Default input field -->
       <Input
+        v-else
         :id="fieldId"
         :type="type"
         :placeholder="placeholder"

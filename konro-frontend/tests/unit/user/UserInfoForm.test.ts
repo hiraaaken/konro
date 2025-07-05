@@ -4,14 +4,7 @@ import { createPinia, setActivePinia } from 'pinia'
 import UserInfoForm from '../../../components/user/UserInfoForm.vue'
 import { useUserInfoStore } from '../../../stores/userInfo'
 
-// Mock components
-vi.mock('../../../components/ui/FormField.vue', () => ({
-  default: {
-    name: 'FormField',
-    template: '<div class="form-field"><label>{{ label }}</label><slot name="input"></slot></div>',
-    props: ['label', 'required', 'helpText']
-  }
-}))
+// Mock components are no longer needed since we're using direct HTML elements
 
 vi.mock('../../../components/ui/Button.vue', () => ({
   default: {
@@ -61,8 +54,8 @@ describe('UserInfoForm', () => {
     })
 
     it('should render all form fields', () => {
-      const formFields = wrapper.findAllComponents({ name: 'FormField' })
-      expect(formFields).toHaveLength(3)
+      const selectElements = wrapper.findAll('select')
+      expect(selectElements).toHaveLength(3)
       
       // Check field labels
       expect(wrapper.text()).toContain('年代')
