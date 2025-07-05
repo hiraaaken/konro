@@ -1,12 +1,12 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-orange-50 to-red-50 p-4">
+  <div class="min-h-screen bg-konro-dark p-4">
     <div class="max-w-6xl mx-auto">
       <!-- Header -->
       <header class="text-center mb-12">
-        <h1 class="text-4xl font-bold text-gray-800 mb-4">
+        <h1 class="text-4xl font-bold text-konro-primary mb-4">
           🔥 Konro - Fire Level Selector Demo
         </h1>
-        <p class="text-lg text-gray-600">
+        <p class="text-lg text-konro-secondary">
           ポジティブ励ましチャットボットの火力選択コンポーネント
         </p>
       </header>
@@ -132,7 +132,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import type { FireLevel } from '../types/domain'
-import FireLevelSelector from '../components/organisms/FireLevelSelector.vue'
+import FireLevelSelector from '../components/fire-level/FireLevelSelector.vue'
 
 // Demo state
 const selectedLevel = ref<FireLevel | null>(null)

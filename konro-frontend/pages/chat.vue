@@ -1,12 +1,12 @@
 <template>
-  <div class="h-screen bg-gradient-to-br from-orange-50 to-red-50 flex flex-col">
+  <div class="h-screen bg-konro-dark flex flex-col">
     <!-- Chat Header with Fire Level and Exit Button -->
-    <header class="bg-white shadow-sm px-4 py-3 flex items-center justify-between">
+    <header class="bg-konro-surface shadow-sm px-4 py-3 flex items-center justify-between">
       <div class="flex items-center space-x-3">
         <Icon :name="fireIcon" :class="fireIconClass" size="24" />
         <div>
-          <h1 class="font-bold text-gray-800">{{ fireLevelLabel }}</h1>
-          <p class="text-sm text-gray-500">{{ fireDescription }}</p>
+          <h1 class="font-bold text-konro-primary">{{ fireLevelLabel }}</h1>
+          <p class="text-sm text-konro-secondary">{{ fireDescription }}</p>
         </div>
       </div>
       
@@ -45,12 +45,12 @@
       <template #header>
         <div class="flex items-center space-x-2">
           <Icon name="warning" class="text-red-500" size="20" />
-          <h3 class="text-lg font-bold text-gray-800">チャットを終了しますか？</h3>
+          <h3 class="text-lg font-bold text-white">チャットを終了しますか？</h3>
         </div>
       </template>
       
       <div>
-        <p class="text-gray-600 mb-4">会話の内容は保存されません。</p>
+        <p class="text-gray-300 mb-4">会話の内容は保存されません。</p>
         <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
           <div class="flex items-start space-x-2">
             <Icon name="info" class="text-yellow-600 flex-shrink-0 mt-0.5" size="16" />
