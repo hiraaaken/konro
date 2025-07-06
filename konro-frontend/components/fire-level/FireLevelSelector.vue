@@ -30,7 +30,10 @@
     </div>
 
     <!-- Continue Button (only show if selection is made) -->
-    <div v-if="isSelected && !disabled" class="mt-8 text-center">
+    <div
+      v-if="isSelected && !disabled"
+      class="mt-8 text-center"
+    >
       <Button
         size="lg"
         variant="primary"

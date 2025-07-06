@@ -38,12 +38,12 @@ export const useChatSessionStore = defineStore('chatSession', () => {
   })
 
   const lastMessage = computed(() => {
-    if (!currentSession.value?.messages.length) return null
+    if (!currentSession.value?.messages.length) {return null}
     return currentSession.value.messages[currentSession.value.messages.length - 1]
   })
 
   const recentlyEnded = computed(() => {
-    if (!recentlyEndedTimestamp.value) return false
+    if (!recentlyEndedTimestamp.value) {return false}
     const timeSinceEnd = Date.now() - recentlyEndedTimestamp.value
     return timeSinceEnd < 30000 // 30 seconds
   })
@@ -96,7 +96,7 @@ export const useChatSessionStore = defineStore('chatSession', () => {
   }
 
   function addUserMessage(content: string) {
-    if (!currentSession.value) return
+    if (!currentSession.value) {return}
     
     const message: ChatMessage = {
       id: generateMessageId(),
@@ -114,7 +114,7 @@ export const useChatSessionStore = defineStore('chatSession', () => {
     detectedNegativeWords?: string[],
     wordTransformations?: Array<{ original: string; transformed: string }>
   ) {
-    if (!currentSession.value) return
+    if (!currentSession.value) {return}
     
     const message: ChatMessage = {
       id: generateMessageId(),
@@ -130,7 +130,7 @@ export const useChatSessionStore = defineStore('chatSession', () => {
   }
 
   async function sendMessage(message: string) {
-    if (!canAddMessage()) return
+    if (!canAddMessage()) {return}
     
     setLoading(true)
     
@@ -254,7 +254,7 @@ export const useChatSessionStore = defineStore('chatSession', () => {
   }
 
   function getSessionSummary() {
-    if (!currentSession.value) return null
+    if (!currentSession.value) {return null}
     
     return {
       id: currentSession.value.id,

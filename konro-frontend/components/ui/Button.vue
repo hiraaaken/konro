@@ -11,7 +11,10 @@
       :name="icon"
       :class="iconClasses"
     />
-    <span v-if="$slots.default" :class="textClasses">
+    <span
+      v-if="$slots.default"
+      :class="textClasses"
+    >
       <slot />
     </span>
     <Icon
@@ -25,6 +28,18 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import Icon from './Icon.vue'
+
+const props = withDefaults(defineProps<Props>(), {
+  variant: 'primary',
+  size: 'md',
+  type: 'button',
+  disabled: false,
+  loading: false,
+  iconPosition: 'left',
+  fullWidth: false
+})
+
+const emit = defineEmits<Emits>()
 
 defineOptions({
   inheritAttrs: false
@@ -44,18 +59,6 @@ interface Props {
 interface Emits {
   (e: 'click', event: MouseEvent): void
 }
-
-const props = withDefaults(defineProps<Props>(), {
-  variant: 'primary',
-  size: 'md',
-  type: 'button',
-  disabled: false,
-  loading: false,
-  iconPosition: 'left',
-  fullWidth: false
-})
-
-const emit = defineEmits<Emits>()
 
 const buttonClasses = computed(() => [
   'inline-flex items-center justify-center font-semibold rounded-lg transition-all duration-200',

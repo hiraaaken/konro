@@ -18,6 +18,17 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 
+const props = withDefaults(defineProps<Props>(), {
+  type: 'text',
+  disabled: false,
+  readonly: false,
+  required: false,
+  error: false,
+  size: 'md'
+})
+
+const emit = defineEmits<Emits>()
+
 defineOptions({
   inheritAttrs: false
 })
@@ -39,17 +50,6 @@ interface Emits {
   (e: 'focus', event: FocusEvent): void
   (e: 'blur', event: FocusEvent): void
 }
-
-const props = withDefaults(defineProps<Props>(), {
-  type: 'text',
-  disabled: false,
-  readonly: false,
-  required: false,
-  error: false,
-  size: 'md'
-})
-
-const emit = defineEmits<Emits>()
 
 const isFocused = ref(false)
 

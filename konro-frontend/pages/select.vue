@@ -2,15 +2,19 @@
   <div class="min-h-screen bg-konro-dark flex flex-col">
     <!-- Header -->
     <header class="text-center py-8">
-      <h1 class="text-4xl font-bold text-konro-primary mb-2">Konro</h1>
-      <p class="text-lg text-konro-secondary">今日の励まし火力を選んでください</p>
+      <h1 class="text-4xl font-bold text-konro-primary mb-2">
+        Konro
+      </h1>
+      <p class="text-lg text-konro-secondary">
+        今日の励まし火力を選んでください
+      </p>
     </header>
 
     <!-- Fire Level Selector -->
     <main class="flex-1 flex items-center justify-center px-4">
       <FireLevelSelector 
-        @fire-level-selected="handleFireLevelSelected"
         :loading="isTransitioning"
+        @fire-level-selected="handleFireLevelSelected"
       />
     </main>
 
@@ -29,8 +33,8 @@
     <!-- Footer -->
     <footer class="text-center py-6">
       <button 
-        @click="goToSettings"
         class="text-sm text-konro-secondary hover:text-konro-primary underline"
+        @click="goToSettings"
       >
         設定を変更する
       </button>

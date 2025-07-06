@@ -25,38 +25,55 @@
             :aria-describedby="descriptionId"
           >
             <!-- Header -->
-            <div v-if="title || $slots.header" class="mb-4">
+            <div
+              v-if="title || $slots.header"
+              class="mb-4"
+            >
               <slot name="header">
-                <h3 :id="titleId" :class="titleClasses">
+                <h3
+                  :id="titleId"
+                  :class="titleClasses"
+                >
                   {{ title }}
                 </h3>
               </slot>
             </div>
 
             <!-- Content -->
-            <div :id="descriptionId" :class="contentClasses">
+            <div
+              :id="descriptionId"
+              :class="contentClasses"
+            >
               <slot>
-                <p v-if="description">{{ description }}</p>
+                <p v-if="description">
+                  {{ description }}
+                </p>
               </slot>
             </div>
 
             <!-- Actions -->
-            <div v-if="$slots.actions || showDefaultActions" :class="actionsClasses">
+            <div
+              v-if="$slots.actions || showDefaultActions"
+              :class="actionsClasses"
+            >
               <slot name="actions">
-                <div v-if="showDefaultActions" class="flex space-x-3">
+                <div
+                  v-if="showDefaultActions"
+                  class="flex space-x-3"
+                >
                   <Button
                     variant="outline"
-                    @click="handleCancel"
                     :disabled="loading"
                     class="flex-1"
+                    @click="handleCancel"
                   >
                     {{ cancelText }}
                   </Button>
                   <Button
                     :variant="confirmVariant"
-                    @click="handleConfirm"
                     :loading="loading"
                     class="flex-1"
+                    @click="handleConfirm"
                   >
                     {{ confirmText }}
                   </Button>

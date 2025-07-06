@@ -2,18 +2,18 @@
 
 export type FireLevel = 'weak' | 'medium' | 'strong'
 
-export type UserInfo = {
+export interface UserInfo {
   age?: string
   gender?: string
   occupation?: string
 }
 
-export type SelectOption = {
+export interface SelectOption {
   key: string
   label: string
 }
 
-export type ChatMessage = {
+export interface ChatMessage {
   id: string
   content: string
   sender: 'user' | 'bot'
@@ -21,7 +21,7 @@ export type ChatMessage = {
   fireLevel?: FireLevel
 }
 
-export type ChatSession = {
+export interface ChatSession {
   id: string
   fireLevel: FireLevel
   startTime: Date
@@ -29,14 +29,14 @@ export type ChatSession = {
   userInfo?: UserInfo
 }
 
-export type EncouragementResponse = {
+export interface EncouragementResponse {
   message: string
   fireLevel: FireLevel
   sessionId: string
 }
 
 // Fire Level Selector specific types
-export type FireLevelOption = {
+export interface FireLevelOption {
   level: FireLevel
   label: string
   description: string
@@ -44,7 +44,7 @@ export type FireLevelOption = {
   intensity: string
 }
 
-export type FireLevelSelection = {
+export interface FireLevelSelection {
   selectedLevel: FireLevel | null
   isSelected: boolean
   timestamp?: Date

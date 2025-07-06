@@ -7,13 +7,19 @@
       :class="labelClasses"
     >
       {{ label }}
-      <span v-if="required" class="text-red-500 ml-1">*</span>
+      <span
+        v-if="required"
+        class="text-red-500 ml-1"
+      >*</span>
     </label>
 
     <!-- Input Field -->
     <div class="relative">
       <!-- Custom input slot (for select boxes, etc.) -->
-      <slot v-if="$slots.input" name="input" />
+      <slot
+        v-if="$slots.input"
+        name="input"
+      />
       
       <!-- Default input field -->
       <Input

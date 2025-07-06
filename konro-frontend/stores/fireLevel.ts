@@ -36,7 +36,7 @@ export const useFireLevelStore = defineStore('fireLevel', () => {
 
   // Utility functions
   function isValidFireLevel(level: any): level is FireLevel {
-    if (!level) return false
+    if (!level) {return false}
     return ['weak', 'medium', 'strong'].includes(level)
   }
 
@@ -60,7 +60,7 @@ export const useFireLevelStore = defineStore('fireLevel', () => {
   }
 
   function getSelectedOption(): FireLevelOption | null {
-    if (!selectedFireLevel.value) return null
+    if (!selectedFireLevel.value) {return null}
     return getFireLevelOption(selectedFireLevel.value) || null
   }
 

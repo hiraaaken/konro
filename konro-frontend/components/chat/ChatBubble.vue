@@ -4,7 +4,10 @@
     :data-testid="isUser ? 'chat-bubble-user' : 'chat-bubble-bot'"
   >
     <!-- Avatar for bot messages -->
-    <div v-if="!isUser" class="flex-shrink-0 mr-3">
+    <div
+      v-if="!isUser"
+      class="flex-shrink-0 mr-3"
+    >
       <Icon
         name="fire"
         size="lg"
@@ -25,13 +28,19 @@
       </div>
       
       <!-- Timestamp -->
-      <div v-if="showTimestamp" class="text-xs text-gray-500 mt-1">
+      <div
+        v-if="showTimestamp"
+        class="text-xs text-gray-500 mt-1"
+      >
         {{ formattedTimestamp }}
       </div>
     </div>
 
     <!-- Avatar for user messages -->
-    <div v-if="isUser" class="flex-shrink-0 ml-3">
+    <div
+      v-if="isUser"
+      class="flex-shrink-0 ml-3"
+    >
       <Icon
         name="user"
         size="lg"
@@ -43,7 +52,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, onMounted, watch } from 'vue'
+import { computed, ref, watch, nextTick } from 'vue'
 import Icon from '../ui/Icon.vue'
 import { useAnimation } from '~/composables/useAnimation'
 
@@ -116,7 +125,7 @@ const avatarColor = computed(() => {
 })
 
 const formattedTimestamp = computed(() => {
-  if (!props.timestamp) return ''
+  if (!props.timestamp) {return ''}
   
   return props.timestamp.toLocaleTimeString('ja-JP', {
     hour: '2-digit',

@@ -1,34 +1,34 @@
 // API types for Konro application
 import type { FireLevel, UserInfo } from '../domain'
 
-export type ApiResponse<T> = {
+export interface ApiResponse<T> {
   success: boolean
   data?: T
   error?: string
 }
 
-export type StartChatRequest = {
+export interface StartChatRequest {
   fireLevel: FireLevel
   userInfo?: UserInfo
 }
 
-export type StartChatResponse = {
+export interface StartChatResponse {
   sessionId: string
   welcomeMessage: string
 }
 
-export type SendMessageRequest = {
+export interface SendMessageRequest {
   sessionId: string
   message: string
   fireLevel: FireLevel
 }
 
-export type SendMessageResponse = {
+export interface SendMessageResponse {
   message: string
   fireLevel: FireLevel
   sessionId: string
 }
 
-export type EndChatRequest = {
+export interface EndChatRequest {
   sessionId: string
 }

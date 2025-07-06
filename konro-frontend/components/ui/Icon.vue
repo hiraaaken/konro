@@ -25,6 +25,13 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
+const props = withDefaults(defineProps<Props>(), {
+  size: 'md',
+  color: 'primary',
+  animated: false,
+  role: 'img'
+})
+
 defineOptions({
   inheritAttrs: false
 })
@@ -37,13 +44,6 @@ interface Props {
   role?: string
   ariaLabel?: string
 }
-
-const props = withDefaults(defineProps<Props>(), {
-  size: 'md',
-  color: 'primary',
-  animated: false,
-  role: 'img'
-})
 
 const iconClasses = computed(() => [
   'inline-block select-none',

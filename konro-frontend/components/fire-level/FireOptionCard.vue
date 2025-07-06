@@ -2,7 +2,8 @@
   <div
     v-bind="$attrs"
     :data-testid="`fire-option fire-option-${option.level}`"
-    :class="[cardClasses, 'fire-option']"
+    class="fire-option"
+    :class="[cardClasses]"
     :role="'radio'"
     :aria-selected="selected"
     :aria-label="`${option.label} - ${option.description}`"
@@ -44,8 +45,8 @@
 
       <!-- Intensity -->
       <p 
-        :data-testid="'fire-option-intensity'"
         :id="`fire-option-description-${option.level}`"
+        :data-testid="'fire-option-intensity'"
         class="text-xs text-gray-500"
       >
         {{ option.intensity }}
@@ -67,6 +68,13 @@ import { computed, ref } from 'vue'
 import Icon from '../ui/Icon.vue'
 import type { FireLevel, FireLevelOption } from '../../types/domain'
 
+const props = withDefaults(defineProps<Props>(), {
+  selected: false,
+  disabled: false
+})
+
+const emit = defineEmits<Emits>()
+
 defineOptions({
   inheritAttrs: false
 })
@@ -80,13 +88,6 @@ interface Props {
 interface Emits {
   (e: 'click', level: FireLevel): void
 }
-
-const props = withDefaults(defineProps<Props>(), {
-  selected: false,
-  disabled: false
-})
-
-const emit = defineEmits<Emits>()
 
 // State
 const isHovered = ref(false)

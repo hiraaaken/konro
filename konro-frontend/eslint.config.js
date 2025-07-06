@@ -8,6 +8,16 @@ export default [
   js.configs.recommended,
   ...vue.configs['flat/recommended'],
   {
+    ignores: [
+      '.nuxt/**',
+      'dist/**',
+      'node_modules/**',
+      '*.d.ts',
+      '**/*.d.ts',
+      '.output/**'
+    ]
+  },
+  {
     files: ['**/*.vue', '**/*.ts', '**/*.js'],
     languageOptions: {
       parser: vueParser,
@@ -16,6 +26,58 @@ export default [
         ecmaVersion: 2022,
         sourceType: 'module',
         extraFileExtensions: ['.vue']
+      },
+      globals: {
+        // Browser environment
+        window: 'readonly',
+        document: 'readonly',
+        localStorage: 'readonly',
+        sessionStorage: 'readonly',
+        console: 'readonly',
+        setTimeout: 'readonly',
+        clearTimeout: 'readonly',
+        setInterval: 'readonly',
+        clearInterval: 'readonly',
+        // Node.js environment
+        process: 'readonly',
+        Buffer: 'readonly',
+        global: 'readonly',
+        __dirname: 'readonly',
+        __filename: 'readonly',
+        require: 'readonly',
+        // Vue/Nuxt globals
+        defineProps: 'readonly',
+        defineEmits: 'readonly',
+        defineExpose: 'readonly',
+        withDefaults: 'readonly',
+        defineOptions: 'readonly',
+        defineNuxtPlugin: 'readonly',
+        useUserInfoStore: 'readonly',
+        useFireLevelStore: 'readonly',
+        useChatSessionStore: 'readonly',
+        // DOM types
+        HTMLElement: 'readonly',
+        HTMLInputElement: 'readonly',
+        HTMLSelectElement: 'readonly',
+        Event: 'readonly',
+        MouseEvent: 'readonly',
+        FocusEvent: 'readonly',
+        RequestInit: 'readonly',
+        HeadersInit: 'readonly',
+        fetch: 'readonly',
+        location: 'readonly',
+        // Vue internals
+        $slots: 'readonly',
+        // Test globals (will be overridden in test files)
+        describe: 'readonly',
+        it: 'readonly',
+        test: 'readonly',
+        expect: 'readonly',
+        beforeEach: 'readonly',
+        afterEach: 'readonly',
+        beforeAll: 'readonly',
+        afterAll: 'readonly',
+        vi: 'readonly'
       }
     },
     plugins: {
@@ -32,7 +94,6 @@ export default [
       }],
       'vue/define-props-declaration': ['error', 'type-based'],
       'vue/define-emits-declaration': ['error', 'type-based'],
-      'vue/no-setup-props-destructure': 'error',
       'vue/prefer-separate-static-class': 'error',
       'vue/prefer-true-attribute-shorthand': 'error',
       'vue/no-v-html': 'error',
@@ -50,14 +111,10 @@ export default [
       'vue/custom-event-name-casing': ['error', 'kebab-case'],
       'vue/prop-name-casing': ['error', 'camelCase'],
 
-      // TypeScript specific rules
+      // TypeScript specific rules (only non-type-checking rules)
       '@typescript-eslint/no-explicit-any': 'error',
       '@typescript-eslint/no-unused-vars': 'error',
-      '@typescript-eslint/prefer-optional-chain': 'error',
-      '@typescript-eslint/prefer-nullish-coalescing': 'error',
-      '@typescript-eslint/strict-boolean-expressions': 'error',
       '@typescript-eslint/no-non-null-assertion': 'error',
-      '@typescript-eslint/no-unnecessary-type-assertion': 'error',
       '@typescript-eslint/consistent-type-imports': 'error',
       '@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
 
