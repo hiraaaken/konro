@@ -104,17 +104,17 @@ const chatSessionStore = useChatSessionStore()
 const showExitDialog = ref(false)
 const isExiting = ref(false)
 
-const fireLevel = computed(() => fireLevelStore.currentFireLevel)
+const fireLevel = computed(() => fireLevelStore.selectedFireLevel)
 const chatSession = computed(() => chatSessionStore.session)
 
 const fireLevelLabel = computed(() => {
   if (!fireLevel.value) {return ''}
-  return fireLevelStore.getFireLevelConfig(fireLevel.value).label
+  return fireLevelStore.getFireLevelOption(fireLevel.value)?.label || ''
 })
 
 const fireDescription = computed(() => {
   if (!fireLevel.value) {return ''}
-  return fireLevelStore.getFireLevelConfig(fireLevel.value).description
+  return fireLevelStore.getFireLevelOption(fireLevel.value)?.description || ''
 })
 
 const fireIcon = computed(() => {

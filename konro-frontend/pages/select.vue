@@ -55,14 +55,14 @@ const fireLevelStore = useFireLevelStore()
 const chatSessionStore = useChatSessionStore()
 const isTransitioning = ref(false)
 
-const selectedFireLevel = computed(() => fireLevelStore.currentFireLevel)
+const selectedFireLevel = computed(() => fireLevelStore.selectedFireLevel)
 
 const handleFireLevelSelected = async (fireLevel: FireLevel) => {
   isTransitioning.value = true
   
   try {
     // Set fire level
-    fireLevelStore.setFireLevel(fireLevel)
+    fireLevelStore.selectFireLevel(fireLevel)
     
     // Initialize chat session with selected fire level
     await chatSessionStore.startSession(fireLevel)
