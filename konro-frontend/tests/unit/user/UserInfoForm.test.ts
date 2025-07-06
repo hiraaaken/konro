@@ -1,5 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
-import { mount, VueWrapper } from '@vue/test-utils'
+import type { VueWrapper } from '@vue/test-utils';
+import { mount } from '@vue/test-utils'
 import { createPinia, setActivePinia } from 'pinia'
 import UserInfoForm from '../../../components/user/UserInfoForm.vue'
 import { useUserInfoStore } from '../../../stores/userInfo'
@@ -65,7 +66,7 @@ describe('UserInfoForm', () => {
 
     it('should render age options from store', () => {
       const ageSelect = wrapper.find('select').element as HTMLSelectElement
-      const options = Array.from(ageSelect.options).map(opt => opt.text)
+      const options = Array.from(ageSelect.options).map(opt => opt.text.trim())
       
       expect(options).toContain('選択してください')
       expect(options).toContain('10代')

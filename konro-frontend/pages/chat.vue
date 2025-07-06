@@ -3,19 +3,30 @@
     <!-- Chat Header with Fire Level and Exit Button -->
     <header class="bg-konro-surface shadow-sm px-4 py-3 flex items-center justify-between">
       <div class="flex items-center space-x-3">
-        <Icon :name="fireIcon" :class="fireIconClass" size="24" />
+        <Icon
+          :name="fireIcon"
+          :class="fireIconClass"
+          size="24"
+        />
         <div>
-          <h1 class="font-bold text-konro-primary">{{ fireLevelLabel }}</h1>
-          <p class="text-sm text-konro-secondary">{{ fireDescription }}</p>
+          <h1 class="font-bold text-konro-primary">
+            {{ fireLevelLabel }}
+          </h1>
+          <p class="text-sm text-konro-secondary">
+            {{ fireDescription }}
+          </p>
         </div>
       </div>
       
       <!-- コンロ消火ボタン -->
       <button
-        @click="showExitDialog = true"
         class="flex items-center space-x-2 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg font-medium transition-colors"
+        @click="showExitDialog = true"
       >
-        <Icon name="power" size="16" />
+        <Icon
+          name="power"
+          size="16"
+        />
         <span>消火</span>
       </button>
     </header>
@@ -44,16 +55,28 @@
     >
       <template #header>
         <div class="flex items-center space-x-2">
-          <Icon name="warning" class="text-red-500" size="20" />
-          <h3 class="text-lg font-bold text-white">チャットを終了しますか？</h3>
+          <Icon
+            name="warning"
+            class="text-red-500"
+            size="20"
+          />
+          <h3 class="text-lg font-bold text-white">
+            チャットを終了しますか？
+          </h3>
         </div>
       </template>
       
       <div>
-        <p class="text-gray-300 mb-4">会話の内容は保存されません。</p>
+        <p class="text-gray-300 mb-4">
+          会話の内容は保存されません。
+        </p>
         <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
           <div class="flex items-start space-x-2">
-            <Icon name="info" class="text-yellow-600 flex-shrink-0 mt-0.5" size="16" />
+            <Icon
+              name="info"
+              class="text-yellow-600 flex-shrink-0 mt-0.5"
+              size="16"
+            />
             <div class="text-sm text-yellow-700">
               <p>終了後は火力選択画面に戻ります。</p>
               <p>また同じ火力で再開することも可能です。</p>
@@ -72,6 +95,7 @@ import { useFireLevelStore } from '~/stores/fireLevel'
 import { useChatSessionStore } from '~/stores/chatSession'
 import Dialog from '~/components/ui/Dialog.vue'
 import Icon from '~/components/ui/Icon.vue'
+import ChatInterface from '~/components/chat/ChatInterface.vue'
 
 const router = useRouter()
 const fireLevelStore = useFireLevelStore()
@@ -84,12 +108,12 @@ const fireLevel = computed(() => fireLevelStore.currentFireLevel)
 const chatSession = computed(() => chatSessionStore.session)
 
 const fireLevelLabel = computed(() => {
-  if (!fireLevel.value) return ''
+  if (!fireLevel.value) {return ''}
   return fireLevelStore.getFireLevelConfig(fireLevel.value).label
 })
 
 const fireDescription = computed(() => {
-  if (!fireLevel.value) return ''
+  if (!fireLevel.value) {return ''}
   return fireLevelStore.getFireLevelConfig(fireLevel.value).description
 })
 

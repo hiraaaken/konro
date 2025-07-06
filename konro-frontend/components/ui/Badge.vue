@@ -17,6 +17,12 @@
 import { computed } from 'vue'
 import Icon from './Icon.vue'
 
+const props = withDefaults(defineProps<Props>(), {
+  variant: 'primary',
+  size: 'md',
+  rounded: false
+})
+
 defineOptions({
   inheritAttrs: false
 })
@@ -27,12 +33,6 @@ interface Props {
   rounded?: boolean
   icon?: string
 }
-
-const props = withDefaults(defineProps<Props>(), {
-  variant: 'primary',
-  size: 'md',
-  rounded: false
-})
 
 const badgeClasses = computed(() => [
   'inline-flex items-center font-medium',

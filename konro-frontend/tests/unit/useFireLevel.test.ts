@@ -29,9 +29,9 @@ describe('useFireLevel', () => {
     it('should have correct fire level configurations', () => {
       const { fireLevelOptions } = useFireLevel()
       
-      const weakOption = fireLevelOptions.find(option => option.level === 'weak')
-      const mediumOption = fireLevelOptions.find(option => option.level === 'medium')
-      const strongOption = fireLevelOptions.find(option => option.level === 'strong')
+      const weakOption = fireLevelOptions.value.find(option => option.level === 'weak')
+      const mediumOption = fireLevelOptions.value.find(option => option.level === 'medium')
+      const strongOption = fireLevelOptions.value.find(option => option.level === 'strong')
       
       expect(weakOption).toEqual({
         level: 'weak',

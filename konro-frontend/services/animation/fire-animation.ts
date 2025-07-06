@@ -196,8 +196,8 @@ export class FireAnimationService {
     const fireEffect = element.querySelector('.fire-effect')
     const sparkEffect = element.querySelector('.spark-effect')
     
-    if (fireEffect) fireEffect.remove()
-    if (sparkEffect) sparkEffect.remove()
+    if (fireEffect) {fireEffect.remove()}
+    if (sparkEffect) {sparkEffect.remove()}
     
     // Reset position
     element.style.position = ''

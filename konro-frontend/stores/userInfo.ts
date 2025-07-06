@@ -95,7 +95,7 @@ export const useUserInfoStore = defineStore('userInfo', () => {
   }
 
   function loadFromLocalStorage() {
-    if (typeof window === 'undefined') return
+    if (typeof window === 'undefined') {return}
 
     try {
       const savedInfo = localStorage.getItem('konro-user-info')
@@ -125,25 +125,25 @@ export const useUserInfoStore = defineStore('userInfo', () => {
 
   // Migration helpers for old data format
   function migrateAgeToKey(age?: string): string | undefined {
-    if (!age) return undefined
+    if (!age) {return undefined}
     const option = userInfoOptions.value.ages.find(a => a.label === age)
     return option ? option.key : age
   }
 
   function migrateGenderToKey(gender?: string): string | undefined {
-    if (!gender) return undefined
+    if (!gender) {return undefined}
     const option = userInfoOptions.value.genders.find(g => g.label === gender)
     return option ? option.key : gender
   }
 
   function migrateOccupationToKey(occupation?: string): string | undefined {
-    if (!occupation) return undefined
+    if (!occupation) {return undefined}
     const option = userInfoOptions.value.occupations.find(o => o.label === occupation)
     return option ? option.key : occupation
   }
 
   function saveToLocalStorage() {
-    if (typeof window === 'undefined') return
+    if (typeof window === 'undefined') {return}
 
     try {
       localStorage.setItem('konro-user-info', JSON.stringify(userInfo.value))
@@ -153,7 +153,7 @@ export const useUserInfoStore = defineStore('userInfo', () => {
   }
 
   function saveSkippedStatus() {
-    if (typeof window === 'undefined') return
+    if (typeof window === 'undefined') {return}
 
     try {
       localStorage.setItem('konro-user-info-skipped', JSON.stringify(isSkipped.value))

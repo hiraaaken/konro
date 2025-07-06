@@ -1,6 +1,9 @@
 <template>
   <div class="fire-toggle-container">
-    <div :class="toggleClasses" @click="handleToggle">
+    <div
+      :class="toggleClasses"
+      @click="handleToggle"
+    >
       <!-- Fire Icon with Animation -->
       <div :class="fireIconClasses">
         <Icon
@@ -12,7 +15,7 @@
       
       <!-- Toggle Switch -->
       <div :class="switchClasses">
-        <div :class="knobClasses"></div>
+        <div :class="knobClasses" />
       </div>
       
       <!-- Labels -->
@@ -23,7 +26,10 @@
     </div>
     
     <!-- Status Text -->
-    <div v-if="showStatus" :class="statusClasses">
+    <div
+      v-if="showStatus"
+      :class="statusClasses"
+    >
       {{ statusText }}
     </div>
   </div>
@@ -82,7 +88,7 @@ const fireIconClasses = computed(() => [
 ])
 
 const fireIcon = computed(() => {
-  if (!props.modelValue) return 'flame-off'
+  if (!props.modelValue) {return 'flame-off'}
   
   switch (props.fireLevel) {
     case 'weak': return 'flame-weak'
@@ -158,7 +164,7 @@ const statusClasses = computed(() => [
 ])
 
 const statusText = computed(() => {
-  if (!props.modelValue) return 'コンロは消火中です'
+  if (!props.modelValue) {return 'コンロは消火中です'}
   
   switch (props.fireLevel) {
     case 'weak': return '弱火で点火中'
@@ -169,7 +175,7 @@ const statusText = computed(() => {
 })
 
 const handleToggle = () => {
-  if (props.disabled) return
+  if (props.disabled) {return}
   
   const newValue = !props.modelValue
   emit('update:modelValue', newValue)

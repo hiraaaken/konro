@@ -23,7 +23,10 @@
     <form @submit.prevent="handleSubmit">
       <!-- Age Selection -->
       <div class="form-group">
-        <label for="age" class="block text-sm font-medium text-gray-700 mb-1">
+        <label
+          for="age"
+          class="block text-sm font-medium text-gray-700 mb-1"
+        >
           年代
         </label>
         <select
@@ -31,7 +34,9 @@
           v-model="formData.age"
           class="block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
         >
-          <option value="">選択してください</option>
+          <option value="">
+            選択してください
+          </option>
           <option
             v-for="age in userInfoOptions.ages"
             :key="age.key"
@@ -40,12 +45,17 @@
             {{ age.label }}
           </option>
         </select>
-        <p class="mt-1 text-sm text-gray-600">あなたの年代を選択してください</p>
+        <p class="mt-1 text-sm text-gray-600">
+          あなたの年代を選択してください
+        </p>
       </div>
 
       <!-- Gender Selection -->
       <div class="form-group mt-4">
-        <label for="gender" class="block text-sm font-medium text-gray-700 mb-1">
+        <label
+          for="gender"
+          class="block text-sm font-medium text-gray-700 mb-1"
+        >
           性別
         </label>
         <select
@@ -53,7 +63,9 @@
           v-model="formData.gender"
           class="block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
         >
-          <option value="">選択してください</option>
+          <option value="">
+            選択してください
+          </option>
           <option
             v-for="gender in userInfoOptions.genders"
             :key="gender.key"
@@ -62,12 +74,17 @@
             {{ gender.label }}
           </option>
         </select>
-        <p class="mt-1 text-sm text-gray-600">該当するものを選択してください</p>
+        <p class="mt-1 text-sm text-gray-600">
+          該当するものを選択してください
+        </p>
       </div>
 
       <!-- Occupation Selection -->
       <div class="form-group mt-4">
-        <label for="occupation" class="block text-sm font-medium text-gray-700 mb-1">
+        <label
+          for="occupation"
+          class="block text-sm font-medium text-gray-700 mb-1"
+        >
           職業
         </label>
         <select
@@ -75,7 +92,9 @@
           v-model="formData.occupation"
           class="block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
         >
-          <option value="">選択してください</option>
+          <option value="">
+            選択してください
+          </option>
           <option
             v-for="occupation in userInfoOptions.occupations"
             :key="occupation.key"
@@ -84,7 +103,9 @@
             {{ occupation.label }}
           </option>
         </select>
-        <p class="mt-1 text-sm text-gray-600">現在の職業を選択してください</p>
+        <p class="mt-1 text-sm text-gray-600">
+          現在の職業を選択してください
+        </p>
       </div>
 
       <!-- Actions -->
@@ -113,7 +134,10 @@
 
     <!-- Progress Indicator -->
     <div class="mt-4 text-center">
-      <div v-if="hasUserInfo" class="space-y-2">
+      <div
+        v-if="hasUserInfo"
+        class="space-y-2"
+      >
         <Badge
           variant="success"
           icon="check"
@@ -121,9 +145,15 @@
           設定済み
         </Badge>
         <div class="text-xs text-gray-500">
-          <p v-if="userInfo.age">年代: {{ userInfoStore.getAgeLabel(userInfo.age) }}</p>
-          <p v-if="userInfo.gender">性別: {{ userInfoStore.getGenderLabel(userInfo.gender) }}</p>
-          <p v-if="userInfo.occupation">職業: {{ userInfoStore.getOccupationLabel(userInfo.occupation) }}</p>
+          <p v-if="userInfo.age">
+            年代: {{ userInfoStore.getAgeLabel(userInfo.age) }}
+          </p>
+          <p v-if="userInfo.gender">
+            性別: {{ userInfoStore.getGenderLabel(userInfo.gender) }}
+          </p>
+          <p v-if="userInfo.occupation">
+            職業: {{ userInfoStore.getOccupationLabel(userInfo.occupation) }}
+          </p>
         </div>
       </div>
       <Badge

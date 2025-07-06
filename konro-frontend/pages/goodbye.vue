@@ -4,28 +4,36 @@
       <!-- Animated Fire Icon -->
       <div class="mb-8">
         <div class="inline-flex items-center justify-center w-24 h-24 bg-white rounded-full shadow-lg mb-4">
-          <Icon name="flame" size="48" class="text-orange-500 animate-pulse" />
+          <Icon
+            name="flame"
+            size="48"
+            class="text-orange-500 animate-pulse"
+          />
         </div>
-        <h1 class="text-2xl font-bold text-konro-primary mb-2">お疲れさまでした</h1>
+        <h1 class="text-2xl font-bold text-konro-primary mb-2">
+          お疲れさまでした
+        </h1>
       </div>
 
       <!-- Farewell Message based on Fire Level -->
       <div class="bg-white rounded-lg p-6 shadow-sm mb-8">
-        <p class="text-konro-secondary leading-relaxed">{{ farewellMessage }}</p>
+        <p class="text-konro-secondary leading-relaxed">
+          {{ farewellMessage }}
+        </p>
       </div>
 
       <!-- Action Buttons -->
       <div class="space-y-3">
         <button
-          @click="startNewSession"
           class="w-full px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white rounded-lg font-medium transition-colors"
+          @click="startNewSession"
         >
           もう一度話す
         </button>
         
         <button
-          @click="goToSelect"
           class="w-full px-6 py-3 border border-gray-600 text-konro-secondary hover:bg-konro-surface rounded-lg font-medium transition-colors"
+          @click="goToSelect"
         >
           火力を変更して話す
         </button>

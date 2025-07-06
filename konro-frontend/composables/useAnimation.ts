@@ -1,4 +1,4 @@
-import { ref } from 'vue'
+import { ref, readonly } from 'vue'
 import { fireAnimationService } from '~/services/animation/fire-animation'
 
 export const useAnimation = () => {
@@ -10,7 +10,7 @@ export const useAnimation = () => {
     detectedWords: string[],
     transformations: Array<{ original: string; transformed: string }>
   ) => {
-    if (!element || detectedWords.length === 0) return
+    if (!element || detectedWords.length === 0) {return}
 
     isAnimating.value = true
     animationQueue.value = [...detectedWords]

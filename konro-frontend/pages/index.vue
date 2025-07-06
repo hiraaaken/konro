@@ -1,15 +1,31 @@
 <template>
   <div class="min-h-screen bg-konro-dark flex items-center justify-center p-4">
-    <div v-if="isLoading" class="text-center">
-      <Icon name="flame" size="64" class="text-orange-500 animate-pulse mb-4" />
-      <p class="text-konro-secondary">読み込み中...</p>
+    <div
+      v-if="isLoading"
+      class="text-center"
+    >
+      <Icon
+        name="flame"
+        size="64"
+        class="text-orange-500 animate-pulse mb-4"
+      />
+      <p class="text-konro-secondary">
+        読み込み中...
+      </p>
     </div>
     
-    <div v-else class="max-w-md mx-auto text-center">
+    <div
+      v-else
+      class="max-w-md mx-auto text-center"
+    >
       <div class="bg-white rounded-lg shadow-lg p-8">
         <div class="mb-8">
           <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-orange-400 to-red-500 rounded-full mb-4">
-            <Icon name="flame" size="40" class="text-white" />
+            <Icon
+              name="flame"
+              size="40"
+              class="text-white"
+            />
           </div>
           <h1 class="text-4xl font-bold text-gray-800 mb-2">
             Konro
