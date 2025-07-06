@@ -22,78 +22,70 @@
     <!-- Form -->
     <form @submit.prevent="handleSubmit">
       <!-- Age Selection -->
-      <FormField
-        v-model="formData.age"
-        label="年代"
-        :required="false"
-        help-text="あなたの年代を選択してください"
-      >
-        <template #input>
-          <select
-            v-model="formData.age"
-            class="block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+      <div class="form-group">
+        <label for="age" class="block text-sm font-medium text-gray-700 mb-1">
+          年代
+        </label>
+        <select
+          id="age"
+          v-model="formData.age"
+          class="block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+        >
+          <option value="">選択してください</option>
+          <option
+            v-for="age in userInfoOptions.ages"
+            :key="age.key"
+            :value="age.key"
           >
-            <option value="">選択してください</option>
-            <option
-              v-for="age in userInfoOptions.ages"
-              :key="age"
-              :value="age"
-            >
-              {{ age }}
-            </option>
-          </select>
-        </template>
-      </FormField>
+            {{ age.label }}
+          </option>
+        </select>
+        <p class="mt-1 text-sm text-gray-600">あなたの年代を選択してください</p>
+      </div>
 
       <!-- Gender Selection -->
-      <FormField
-        v-model="formData.gender"
-        label="性別"
-        :required="false"
-        help-text="該当するものを選択してください"
-        class="mt-4"
-      >
-        <template #input>
-          <select
-            v-model="formData.gender"
-            class="block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+      <div class="form-group mt-4">
+        <label for="gender" class="block text-sm font-medium text-gray-700 mb-1">
+          性別
+        </label>
+        <select
+          id="gender"
+          v-model="formData.gender"
+          class="block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+        >
+          <option value="">選択してください</option>
+          <option
+            v-for="gender in userInfoOptions.genders"
+            :key="gender.key"
+            :value="gender.key"
           >
-            <option value="">選択してください</option>
-            <option
-              v-for="gender in userInfoOptions.genders"
-              :key="gender"
-              :value="gender"
-            >
-              {{ gender }}
-            </option>
-          </select>
-        </template>
-      </FormField>
+            {{ gender.label }}
+          </option>
+        </select>
+        <p class="mt-1 text-sm text-gray-600">該当するものを選択してください</p>
+      </div>
 
       <!-- Occupation Selection -->
-      <FormField
-        v-model="formData.occupation"
-        label="職業"
-        :required="false"
-        help-text="現在の職業を選択してください"
-        class="mt-4"
-      >
-        <template #input>
-          <select
-            v-model="formData.occupation"
-            class="block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+      <div class="form-group mt-4">
+        <label for="occupation" class="block text-sm font-medium text-gray-700 mb-1">
+          職業
+        </label>
+        <select
+          id="occupation"
+          v-model="formData.occupation"
+          class="block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+        >
+          <option value="">選択してください</option>
+          <option
+            v-for="occupation in userInfoOptions.occupations"
+            :key="occupation.key"
+            :value="occupation.key"
           >
-            <option value="">選択してください</option>
-            <option
-              v-for="occupation in userInfoOptions.occupations"
-              :key="occupation"
-              :value="occupation"
-            >
-              {{ occupation }}
-            </option>
-          </select>
-        </template>
-      </FormField>
+            {{ occupation.label }}
+          </option>
+        </select>
+        <p class="mt-1 text-sm text-gray-600">現在の職業を選択してください</p>
+      </div>
 
       <!-- Actions -->
       <div class="flex space-x-3 mt-6">
@@ -101,6 +93,7 @@
           type="submit"
           variant="primary"
           :full-width="false"
+          :loading="props.loading"
           class="flex-1"
         >
           保存
@@ -109,6 +102,7 @@
           type="button"
           variant="ghost"
           :full-width="false"
+          :disabled="props.loading"
           class="flex-1"
           @click="handleSkip"
         >
@@ -118,14 +112,20 @@
     </form>
 
     <!-- Progress Indicator -->
-    <div class="mt-4 flex justify-center space-x-2">
-      <Badge
-        v-if="hasUserInfo"
-        variant="success"
-        icon="check"
-      >
-        設定済み
-      </Badge>
+    <div class="mt-4 text-center">
+      <div v-if="hasUserInfo" class="space-y-2">
+        <Badge
+          variant="success"
+          icon="check"
+        >
+          設定済み
+        </Badge>
+        <div class="text-xs text-gray-500">
+          <p v-if="userInfo.age">年代: {{ userInfoStore.getAgeLabel(userInfo.age) }}</p>
+          <p v-if="userInfo.gender">性別: {{ userInfoStore.getGenderLabel(userInfo.gender) }}</p>
+          <p v-if="userInfo.occupation">職業: {{ userInfoStore.getOccupationLabel(userInfo.occupation) }}</p>
+        </div>
+      </div>
       <Badge
         v-else-if="isPartiallyFilled"
         variant="warning"
@@ -141,15 +141,22 @@
 import { computed, reactive } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useUserInfoStore } from '../../stores/userInfo'
-import FormField from '../ui/FormField.vue'
 import Button from '../ui/Button.vue'
 import Icon from '../ui/Icon.vue'
 import Badge from '../ui/Badge.vue'
 
-interface Emits {
-  (e: 'saved'): void
-  (e: 'skipped'): void
+interface Props {
+  loading?: boolean
 }
+
+interface Emits {
+  (e: 'submit', userInfo: any): void
+  (e: 'skip'): void
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  loading: false
+})
 
 const emit = defineEmits<Emits>()
 
@@ -173,17 +180,18 @@ const isPartiallyFilled = computed(() => {
 
 // Methods
 function handleSubmit() {
-  userInfoStore.setUserInfo({
+  const userInfoData = {
     age: formData.age || undefined,
     gender: formData.gender || undefined,
     occupation: formData.occupation || undefined
-  })
+  }
   
-  emit('saved')
+  userInfoStore.setUserInfo(userInfoData)
+  emit('submit', userInfoData)
 }
 
 function handleSkip() {
   userInfoStore.skipUserInfo()
-  emit('skipped')
+  emit('skip')
 }
 </script>
