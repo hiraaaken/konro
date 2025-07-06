@@ -26,7 +26,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, useSlots } from 'vue'
 import Icon from './Icon.vue'
 
 const props = withDefaults(defineProps<Props>(), {
@@ -40,6 +40,7 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const emit = defineEmits<Emits>()
+const slots = useSlots()
 
 defineOptions({
   inheritAttrs: false
@@ -94,8 +95,8 @@ const buttonClasses = computed(() => [
 
 const iconClasses = computed(() => [
   {
-    'mr-2': props.iconPosition === 'left' && !!$slots.default,
-    'ml-2': props.iconPosition === 'right' && !!$slots.default,
+    'mr-2': props.iconPosition === 'left' && !!slots.default,
+    'ml-2': props.iconPosition === 'right' && !!slots.default,
     'animate-spin': props.loading
   }
 ])
